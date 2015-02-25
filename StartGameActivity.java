@@ -1,5 +1,4 @@
-/*  
- * Tic Tac Toe Game for andriod ( SDK Version 4.0+ )
+/* Tic Tac Toe Game for andriod ( SDK Version 4.0+ )
  * Created by Russel Young, started on 9/2/2015
  * Start Game Activity thread
  */
@@ -18,21 +17,21 @@ import android.widget.Button;
 
 public class StartGameActivity extends ActionBarActivity {
 
-	@Override
+	//@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState); 
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start_game);
-		this.game();
+		this.game(null);
 	}							
 
-	@Override
+	//@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.start_game, menu);
 		return true;
 	}
 
-@Override
+//@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -44,7 +43,7 @@ public class StartGameActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void game(){
+	public void game(View view){
 		/* Creates an empty game board
 		 * Randomises to determine a starting player
 		 * Calls turn() to begin game
@@ -53,8 +52,6 @@ public class StartGameActivity extends ActionBarActivity {
 		 */
 				
 		int x = 3;
-		int winner = 0;
-		int turn = 0;
 		int[][] board = new int[x][x];
 		board[0][0] = 2;
 		board[0][1] = 2;
@@ -67,34 +64,26 @@ public class StartGameActivity extends ActionBarActivity {
 		board[2][2] = 2;
 		
 		Random rand = new Random();
-		int player = rand.nextInt(1);
-		
-		while (winner == 0 && turn <9){
-			turn(player, board, turn, null);
-			turn += 1;
-			if(player == 1){
-				player = 0;
-			}
-			if (turn > 2){
-				winner = wincheck(board,player);								
-			}
-		}
+		int player = rand.nextInt(2);
+		turn(player, board);
 	}
 	
 	
 	
-	 void turn(int player, int board[][], int turn, View z) {
+	void turn(int player, int board[][]) {
 		/* player's move placed on game board, currently automated as easy AI vs easy AI 
 		 * ( this is simply a random placement every turn )
-		 * checks that square is empty, if not chooses another square,
-		 * updates GUI after move to display the change (currently testing, displays all after game finished)
+		 * checks that square is empty, if not chooses another square, keeps track of turns,
+		 * updates GUI after move to display the change (currently testing, errors found)
+		 * calls winner() after 3 turns to check for a winner
+		 * halts game if winner found or if the board is full and no more turns are possible
 		 */
 			
 		Random rand = new Random();
-		int x = 0;
 		int positionX = rand.nextInt(3);
 		int positionY = rand.nextInt(3);
-		x = turn;
+		int turn = 0;
+		int winner = 0;
 		
 		Button myButton1 = (Button) findViewById(R.id.button1);
 		Button myButton2 = (Button) findViewById(R.id.button5);
@@ -107,13 +96,13 @@ public class StartGameActivity extends ActionBarActivity {
 		Button myButton9 = (Button) findViewById(R.id.button2);
 		
 		
-		//easy AI code, set as player 0 for testing
-		if(player == 0){
-			while(x == turn){
-				if (board[positionX][positionY] == 2){
+		while (winner == 0 && turn <9){
+			if (board[positionX][positionY] == 2){
+				if (player == 0 ){
 					board[positionX][positionY] = 0;	
-					x += 1;
-					//new button gui test
+					turn += 1;
+					
+					//button gui test
 					if(positionX == 0 && positionY == 0){
 						myButton1.setText("O");
 					}
@@ -141,91 +130,67 @@ public class StartGameActivity extends ActionBarActivity {
 					else if(positionX == 2 && positionY == 2){
 						myButton9.setText("O");
 						}	
+					
+					if (turn > 1){															
+						winner = wincheck(board,player,turn);
+					}
+					player = 1;
 				}
 				else{
-					positionX = rand.nextInt(3);
-					positionY = rand.nextInt(3);
-				}
-		}
-	}
-	else{
-		while(x == turn){
-				
-			//testing human turn placement
-			//new button gui test
-				
-				 switch (z.getId()) {
-
-				    case R.id.button1:
-				    	board[0][0] = 1;
+					board[positionX][positionY] = 1;
+					turn += 1;
+					
+					// button gui test
+					if(positionX == 0 && positionY == 0){
 						myButton1.setText("X");
-						x += 1;
-				        break;
-
-				    case R.id.button5:
-				    	board[0][1] = 1;
+					}
+					else if(positionX == 0 && positionY == 1){
 						myButton2.setText("X");
-						x += 1;
-				        break;
-				        
-				    case R.id.button9:
-				    	board[0][2] = 1;
+					}
+					else if(positionX == 0 && positionY == 2){
 						myButton3.setText("X");
-						x += 1;
-				        break;
-				        
-				    case R.id.button4:
-				    	board[1][0] = 1;
+					}
+					else if(positionX == 1 && positionY == 0){
 						myButton4.setText("X");
-						x += 1;
-				        break;
-				        
-				    case R.id.button3:
-				    	board[1][1] = 1;
+					}
+					else if(positionX == 1 && positionY == 1){
 						myButton5.setText("X");
-						x += 1;
-				        break;
-				        
-				    case R.id.button6:
-				    	board[1][2] = 1;
+					}
+					else if(positionX == 1 && positionY == 2){
 						myButton6.setText("X");
-						x += 1;
-				        break;
-				        
-				    case R.id.button7:
-				    	board[2][0] = 1;
+					}
+					else if(positionX == 2 && positionY == 0){
 						myButton7.setText("X");
-						x += 1;
-				        break;
-				        
-				    case R.id.button8:
-				    	board[2][1] = 1;
+					}
+					else if(positionX == 2 && positionY == 1){
 						myButton8.setText("X");
-						x += 1;
-				        break;
-				        
-				    case R.id.button2:
-				    	board[2][2] = 1;
+						}
+					else if(positionX == 2 && positionY == 2){
 						myButton9.setText("X");
-						x += 1;
-				        break;
-
-				    default:
-				        break;
-				    }
+						}	
+						
+					if (turn > 2){
+						winner = wincheck(board,player,turn);								
+					}
+					player = 0;
+				}
 			}
-		}
+			else{
+				positionX = rand.nextInt(3);
+				positionY = rand.nextInt(3);
+			}
 			
 		/*	try {
 			  Thread.sleep(500);
 			} catch (InterruptedException ie) {
 			    //Handle exception
 			}*/	
+		}
 	}
 	
-	public static int wincheck (int[][] board, int player){
+	public static int wincheck (int[][] board, int player, int turn){
 		//check for a winner and returns winner status
-	
+		
 		int winner = 0;
 		
 		if(board[0][0] == player && board[0][1] == player && board[0][2] == player){
@@ -258,8 +223,4 @@ public class StartGameActivity extends ActionBarActivity {
 		return winner;
 		
 	}
-	
-
-	
 }
-
