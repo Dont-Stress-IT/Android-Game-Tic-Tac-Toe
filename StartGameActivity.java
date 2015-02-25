@@ -1,3 +1,4 @@
+
 /* Tic Tac Toe Game for andriod ( SDK Version 4.0+ )
  * Created by Russel Young, started on 9/2/2015
  * Start Game Activity thread
@@ -21,6 +22,13 @@ public class StartGameActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start_game);
+		
+		final Button button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            }
+        });
 		this.game(null);
 	}							
 
