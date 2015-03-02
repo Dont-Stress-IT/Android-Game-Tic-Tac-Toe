@@ -32,7 +32,8 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	int winner = 0;
 	int turn = 0;
 	Random rand = new Random();
-	int player = rand.nextInt(2);
+	//int player = rand.nextInt(2);
+	int player = 1; //for testing human placement
 	boolean click = false;
 	
 	@Override
@@ -58,32 +59,16 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		button8.setOnClickListener(this); // calling onClick() method
 		Button button9 = (Button) findViewById(R.id.button2);
 		button9.setOnClickListener(this); // calling onClick() method
-		
-		while (winner == 0 && turn <9){
-				if(player == 1){
-					while(click == false){
-						//wait for click
-					}
-				}
-				
-				click = false;
-				turn(player, board, null);
-				turn += 1;
-				player = 0;
-			if (turn > 2){
-				winner = wincheck(board,player, player);								
-			}
-		}
 	}							
 
-	//@Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.start_game, menu);
 		return true;
 	}
 
-//@Override
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -98,41 +83,92 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	@Override
     public void onClick(View v) {
 		//switch to id which button was clicked for human turn placement
+		
+		Button myButton1 = (Button) findViewById(R.id.button1);
+		Button myButton2 = (Button) findViewById(R.id.button5);
+		Button myButton3 = (Button) findViewById(R.id.button9);
+		Button myButton4 = (Button) findViewById(R.id.button4);
+		Button myButton5 = (Button) findViewById(R.id.button3);
+		Button myButton6 = (Button) findViewById(R.id.button6);
+		Button myButton7 = (Button) findViewById(R.id.button7);
+		Button myButton8 = (Button) findViewById(R.id.button8);
+		Button myButton9 = (Button) findViewById(R.id.button2);
+			
 		switch (v.getId()) {
-
 	    case R.id.button1:
 	    	board[0][0] = 1;
+	    	myButton1.setText("X");
+			click = true;
 	        break;
 	    case R.id.button2:
 	    	board[0][1] = 1;
+	    	myButton9.setText("X");
+	    	click = true;
 	        break;
 	    case R.id.button3:
 	    	board[0][2] = 1;
+	    	myButton5.setText("X");
 	        break;
 	    case R.id.button4:
 	    	board[1][0] = 1;
+	    	myButton4.setText("X");
 	        break;
 	    case R.id.button5:
 	    	board[1][1] = 1;
+	    	myButton2.setText("X");
 	        break;
 	    case R.id.button6:
 	    	board[1][2] = 1;
+	    	myButton6.setText("X");
 	        break;
 	    case R.id.button7:
 	    	board[2][0] = 1;
+	    	myButton7.setText("X");
 	        break;
 	    case R.id.button8:
 	    	board[2][1] = 1;
+	    	myButton8.setText("X");
 	        break;
 	    case R.id.button9:
 	    	board[2][2] = 1;
+	    	myButton3.setText("X");
 	        break;
 		}
+		
+		
 		click = true;
+		turn += 1;
+		if (turn > 2){
+			wincheck(board, player);							
+		}
+		player = 0;
+		game(v);
     }
 	
+    public void game(View v){
+    	
+    	if (winner == 0 && turn <9){
+			if(player == 0){
+				turn(player, board);
+				turn += 1;
+				if (turn > 2){
+					wincheck(board, player);							
+				}
+			}
+			else{
+				//human turn
+				//player = 0;
+			}
+			
 	
-	void turn(int player, int board[][], View v) {
+    	}
+    	else{
+    		//game over, display winner
+    	}
+	}
+	
+	
+	void turn(int player, int board[][]) {
 		/* player's move placed on game board, currently automated as easy AI vs easy AI 
 		 * ( this is simply a random placement every turn )
 		 * checks that square is empty, if not chooses another square, keeps track of turns,
@@ -141,7 +177,6 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		 * halts game if winner found or if the board is full and no more turns are possible
 		 */
 			
-		Random rand = new Random();
 		int positionX = rand.nextInt(3);
 		int positionY = rand.nextInt(3);
 
@@ -162,7 +197,6 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 					}
 					board[positionX][positionY] = 0;	
 					
-					//button gui test
 					if(positionX == 0 && positionY == 0){
 						myButton1.setText("O");
 					}
@@ -190,50 +224,18 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 					else if(positionX == 2 && positionY == 2){
 						myButton9.setText("O");
 						}	
+					
+					player = 1;
+					click = false;
 				}
 				else{
-					
-					// button gui test
-					if(board[0][0] == 1){
-						myButton1.setText("X");
-					}
-					if(board[0][1] == 1){
-						myButton1.setText("X");
-					}
-					if(board[0][2] == 1){
-						myButton1.setText("X");
-					}
-					if(board[1][0] == 1){
-						myButton1.setText("X");
-					}
-					if(board[1][1] == 1){
-						myButton1.setText("X");
-					}
-					if(board[1][2] == 1){
-						myButton1.setText("X");
-					}
-					if(board[2][0] == 1){
-						myButton1.setText("X");
-					}
-					if(board[2][1] == 1){
-						myButton1.setText("X");
-					}
-					if(board[2][2] == 1){
-						myButton1.setText("X");
-					}
+						//human
+					player = 0;
 				}
 			}
-
-		/*	try {
-			  Thread.sleep(500);
-			} catch (InterruptedException ie) {
-			    //Handle exception
-			}*/	
 	
-	public static int wincheck (int[][] board, int player, int turn){
+	public void wincheck (int[][] board, int player){
 		//check for a winner and returns winner status
-		
-		int winner = 0;
 		
 		if(board[0][0] == player && board[0][1] == player && board[0][2] == player){
 			winner = 1;
@@ -258,11 +260,6 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		}
 		else if(board[2][0] == player && board[1][1] == player && board[0][2] == player){
 			winner = 1;
-			}																	
-	
-	//	if (winner == 1){
-	//	}
-		return winner;
-		
+			}																			
 	}
 }
