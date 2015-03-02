@@ -94,52 +94,50 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		Button myButton8 = (Button) findViewById(R.id.button8);
 		Button myButton9 = (Button) findViewById(R.id.button2);
 			
-		switch (v.getId()) {
+		switch (v.getId()) { //error id mapping to board
 	    case R.id.button1:
 	    	board[0][0] = 1;
 	    	myButton1.setText("X");
-			click = true;
-	        break;
-	    case R.id.button2:
-	    	board[0][1] = 1;
-	    	myButton9.setText("X");
-	    	click = true;
-	        break;
-	    case R.id.button3:
-	    	board[0][2] = 1;
-	    	myButton5.setText("X");
-	        break;
-	    case R.id.button4:
-	    	board[1][0] = 1;
-	    	myButton4.setText("X");
 	        break;
 	    case R.id.button5:
-	    	board[1][1] = 1;
+	    	board[1][0] = 1;
 	    	myButton2.setText("X");
 	        break;
+	    case R.id.button9:
+	    	board[2][0] = 1;
+	    	myButton3.setText("X");
+	        break;
+	    case R.id.button4:
+	    	board[0][1] = 1;
+	    	myButton4.setText("X");
+	        break;
+	    case R.id.button3:
+	    	board[1][1] = 1;
+	    	myButton5.setText("X");
+	        break;
 	    case R.id.button6:
-	    	board[1][2] = 1;
+	    	board[2][1] = 1;
 	    	myButton6.setText("X");
 	        break;
 	    case R.id.button7:
-	    	board[2][0] = 1;
+	    	board[0][2] = 1;
 	    	myButton7.setText("X");
 	        break;
 	    case R.id.button8:
-	    	board[2][1] = 1;
+	    	board[1][2] = 1;
 	    	myButton8.setText("X");
 	        break;
-	    case R.id.button9:
+	    case R.id.button2:
 	    	board[2][2] = 1;
-	    	myButton3.setText("X");
+	    	myButton9.setText("X");
 	        break;
+	    
 		}
-		
 		
 		click = true;
 		turn += 1;
 		if (turn > 2){
-			wincheck(board, player);							
+			wincheck();							
 		}
 		player = 0;
 		game(v);
@@ -147,12 +145,12 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	
     public void game(View v){
     	
-    	if (winner == 0 && turn <9){
+    	if (winner == 0 && turn < 9){
 			if(player == 0){
 				turn(player, board);
 				turn += 1;
 				if (turn > 2){
-					wincheck(board, player);							
+					wincheck();							
 				}
 			}
 			else{
@@ -164,6 +162,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
     	}
     	else{
     		//game over, display winner
+    		
     	}
 	}
 	
@@ -200,25 +199,25 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 					if(positionX == 0 && positionY == 0){
 						myButton1.setText("O");
 					}
-					else if(positionX == 0 && positionY == 1){
+					else if(positionX == 1 && positionY == 0){
 						myButton2.setText("O");
 					}
-					else if(positionX == 0 && positionY == 2){
+					else if(positionX == 2 && positionY == 0){
 						myButton3.setText("O");
 					}
-					else if(positionX == 1 && positionY == 0){
+					else if(positionX == 0 && positionY == 1){
 						myButton4.setText("O");
 					}
 					else if(positionX == 1 && positionY == 1){
 						myButton5.setText("O");
 					}
-					else if(positionX == 1 && positionY == 2){
+					else if(positionX == 2 && positionY == 1){
 						myButton6.setText("O");
 					}
-					else if(positionX == 2 && positionY == 0){
+					else if(positionX == 0 && positionY == 2){
 						myButton7.setText("O");
 					}
-					else if(positionX == 2 && positionY == 1){
+					else if(positionX == 1 && positionY == 2){
 						myButton8.setText("O");
 						}
 					else if(positionX == 2 && positionY == 2){
@@ -234,8 +233,9 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 				}
 			}
 	
-	public void wincheck (int[][] board, int player){
-		//check for a winner and returns winner status
+	public void wincheck (){
+		//check for a winner
+		Button myButton10 = (Button) findViewById(R.id.button10);
 		
 		if(board[0][0] == player && board[0][1] == player && board[0][2] == player){
 			winner = 1;
@@ -260,6 +260,11 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		}
 		else if(board[2][0] == player && board[1][1] == player && board[0][2] == player){
 			winner = 1;
-			}																			
+			}
+		if(winner == 1){
+			myButton10.setText("winner " + player);
+		}
+		
 	}
+	
 }
