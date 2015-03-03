@@ -43,21 +43,21 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		Button button1 = (Button) findViewById(R.id.button1);
 		button1.setOnClickListener(this); // calling onClick() method
 		Button button2 = (Button) findViewById(R.id.button5);
-		button2.setOnClickListener(this); // calling onClick() method
+		button2.setOnClickListener(this);
 		Button button3 = (Button) findViewById(R.id.button9);
-		button3.setOnClickListener(this); // calling onClick() method
+		button3.setOnClickListener(this);
 		Button button4 = (Button) findViewById(R.id.button4);
-		button4.setOnClickListener(this); // calling onClick() method
+		button4.setOnClickListener(this);
 		Button button5 = (Button) findViewById(R.id.button3);
-		button5.setOnClickListener(this); // calling onClick() method
+		button5.setOnClickListener(this);
 		Button button6 = (Button) findViewById(R.id.button6);
-		button6.setOnClickListener(this); // calling onClick() method
+		button6.setOnClickListener(this);
 		Button button7 = (Button) findViewById(R.id.button7);
-		button7.setOnClickListener(this); // calling onClick() method
+		button7.setOnClickListener(this);
 		Button button8 = (Button) findViewById(R.id.button8);
-		button8.setOnClickListener(this); // calling onClick() method
+		button8.setOnClickListener(this);
 		Button button9 = (Button) findViewById(R.id.button2);
-		button9.setOnClickListener(this); // calling onClick() method
+		button9.setOnClickListener(this);
 	}							
 
 	@Override
@@ -93,7 +93,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		Button myButton8 = (Button) findViewById(R.id.button8);
 		Button myButton9 = (Button) findViewById(R.id.button2);
 			
-		switch (v.getId()) { //error id mapping to board
+		switch (v.getId()) {
 	    case R.id.button1:
 	    	board[0][0] = 1;
 	    	myButton1.setText("X");
@@ -155,11 +155,10 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 			}
 			else{
 				//human turn
-				//player = 0;
 			}
     	}
     	else{
-    		//game over, display winner
+    		//game over
     	}
 	}
 	
@@ -223,8 +222,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 					click = false;
 				}
 				else{
-						//human
-					player = 0;
+						//human or ai
 				}
 			}
 	
