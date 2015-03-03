@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-
 public class StartGameActivity extends ActionBarActivity implements OnClickListener {
 
 	int x = 0;
@@ -131,12 +130,12 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	    	board[2][2] = 1;
 	    	myButton9.setText("X");
 	        break;
-	    
 		}
 		
 		click = true;
 		turn += 1;
-		if (turn > 2){
+		
+		if (turn > 4){
 			wincheck();							
 		}
 		player = 0;
@@ -147,27 +146,25 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
     	
     	if (winner == 0 && turn < 9){
 			if(player == 0){
-				turn(player, board);
+				turn();
 				turn += 1;
-				if (turn > 2){
+				if (turn > 4){
 					wincheck();							
 				}
+				player = 1;
 			}
 			else{
 				//human turn
 				//player = 0;
 			}
-			
-	
     	}
     	else{
     		//game over, display winner
-    		
     	}
 	}
 	
 	
-	void turn(int player, int board[][]) {
+	void turn() {
 		/* player's move placed on game board, currently automated as easy AI vs easy AI 
 		 * ( this is simply a random placement every turn )
 		 * checks that square is empty, if not chooses another square, keeps track of turns,
@@ -223,8 +220,6 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 					else if(positionX == 2 && positionY == 2){
 						myButton9.setText("O");
 						}	
-					
-					player = 1;
 					click = false;
 				}
 				else{
@@ -263,8 +258,6 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 			}
 		if(winner == 1){
 			myButton10.setText("winner " + player);
-		}
-		
-	}
-	
+		}	
+	}	
 }
