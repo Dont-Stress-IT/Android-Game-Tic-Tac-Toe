@@ -18,6 +18,11 @@ Logging functions
 
 Backwards compatability (aiming for a minimum android SDK 4.0)
 
+update log 3/03/2015
+
+Human vs easy AI working update.
+Human goes first, then AI. It checks for a winner after every move after the 4th turn ( no win is possible until 5 turns have transpired ).
+code OO architecture changes: declaired variables in start game activity fragment instead of inside it's modules and passing them every time.
 
 
 update log 12/02/2015 
