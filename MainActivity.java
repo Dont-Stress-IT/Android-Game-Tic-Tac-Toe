@@ -7,19 +7,13 @@
 
 
 package com.example.myfirstapp;
-
-import java.util.List;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -56,19 +50,8 @@ public class MainActivity extends ActionBarActivity {
             return super.onOptionsItemSelected(item);
     }
     }
-    
-    /* Called when the user clicks the Send button and displays the inputed text as a new activity.
-     * Used for testing purposes, will be removed.
-     * */
-    public void sendMessage(View view) {
-    	Intent intent = new Intent(this, DisplayMessageActivity.class);
-    	EditText editText = (EditText) findViewById(R.id.edit_message);
-    	String message = editText.getText().toString();
-    	intent.putExtra(EXTRA_MESSAGE, message);
-    	startActivity(intent);
-    }
-    
-    /* Called when the user clicks the Start Game button. Starts a new blank activity */
+       
+    /* Called when the user clicks the Start Game button. Starts a new activity with game code*/
     public void startGame(View view) {
     	
     	// Build the intent
@@ -77,27 +60,6 @@ public class MainActivity extends ActionBarActivity {
     	  
     	}
 
-    /* Called when the user clicks the Internet button, checks for connection status and directs
-     * to http://dontstressit.com.au
-     * Used for testing purposes, will be removed.
-     *  */
-	public void internet(View veiw){
-		
-		// Build the intent
-		Uri webpage = Uri.parse("http://dontstressit.com.au");
-		Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-		
-		// Verify it resolves
-		PackageManager packageManager = getPackageManager();
-		List<ResolveInfo> activities = packageManager.queryIntentActivities(webIntent, 0);
-		boolean isIntentSafe = activities.size() > 0;
-		
-		// Start an activity if it's safe
-		if (isIntentSafe) {
-		    startActivity(webIntent);
-		}
 
-		
-	}
 
 }
