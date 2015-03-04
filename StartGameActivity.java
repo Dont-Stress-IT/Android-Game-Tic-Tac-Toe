@@ -31,8 +31,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	int winner = 0;
 	int turn = 0;
 	Random rand = new Random();
-	//int player = rand.nextInt(2);
-	int player = 1; //for testing human placement
+	int player = rand.nextInt(2);  //random starting player 
 	boolean click = false;
 	
 	@Override
@@ -58,6 +57,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		button8.setOnClickListener(this);
 		Button button9 = (Button) findViewById(R.id.button2);
 		button9.setOnClickListener(this);
+		game(null);
 	}							
 
 	@Override
@@ -81,7 +81,9 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	
 	@Override
     public void onClick(View v) {
-		//switch to id which button was clicked for human turn placement
+		/*method to id which button was clicked for human turn placement
+		 * places choice in game board array and visually on the button
+		 */
 		
 		Button myButton1 = (Button) findViewById(R.id.button1);
 		Button myButton2 = (Button) findViewById(R.id.button5);
@@ -143,6 +145,10 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
     }
 	
     public void game(View v){
+    	/*checks for winner or end of game due to no turns remaining
+    	 * If AI go to turn() method to process, if human wait for click
+    	 * check for winner with wincheck()
+    	 */
     	
     	if (winner == 0 && turn < 9){
 			if(player == 0){
@@ -154,7 +160,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 				player = 1;
 			}
 			else{
-				//human turn
+				//human turn do nothing, wait for onclick event
 			}
     	}
     	else{
@@ -164,12 +170,8 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	
 	
 	void turn() {
-		/* player's move placed on game board, currently automated as easy AI vs easy AI 
-		 * ( this is simply a random placement every turn )
-		 * checks that square is empty, if not chooses another square, keeps track of turns,
-		 * updates GUI after move to display the change (currently testing, errors found)
-		 * calls winner() after 3 turns to check for a winner
-		 * halts game if winner found or if the board is full and no more turns are possible
+		/* currently easy AI code only ( this is simply a random placement every turn )
+		 * AI checks that square is empty, if not chooses another square
 		 */
 			
 		int positionX = rand.nextInt(3);
@@ -227,7 +229,8 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 			}
 	
 	public void wincheck (){
-		//check for a winner
+		/*checks for a winner and displays winner
+		 */
 		Button myButton10 = (Button) findViewById(R.id.button10);
 		
 		if(board[0][0] == player && board[0][1] == player && board[0][2] == player){
@@ -255,7 +258,12 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 			winner = 1;
 			}
 		if(winner == 1){
-			myButton10.setText("winner " + player);
+			if(player == 0){
+				myButton10.setText("winner is O");
+			}
+			else{
+				myButton10.setText("winner is X");
+			}
 		}	
 	}	
 }
