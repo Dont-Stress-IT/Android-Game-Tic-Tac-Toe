@@ -81,8 +81,9 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	
 	@Override
     public void onClick(View v) {
-		/*method to id which button was clicked for human turn placement
+		/* Method to id which button was clicked for human turn placement
 		 * places choice in game board array and visually on the button
+		 * only places move if square is empty
 		 */
 		
 		Button myButton1 = (Button) findViewById(R.id.button1);
@@ -94,53 +95,82 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		Button myButton7 = (Button) findViewById(R.id.button7);
 		Button myButton8 = (Button) findViewById(R.id.button8);
 		Button myButton9 = (Button) findViewById(R.id.button2);
+		boolean click = false;
 			
 		switch (v.getId()) {
 	    case R.id.button1:
+	    	if(board[0][0] == 2){
 	    	board[0][0] = 1;
 	    	myButton1.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button5:
+	    	if(board[1][0] == 2){
 	    	board[1][0] = 1;
 	    	myButton2.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button9:
+	    	if(board[2][0] == 2){
 	    	board[2][0] = 1;
 	    	myButton3.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button4:
+	    	if(board[0][1] == 2){
 	    	board[0][1] = 1;
 	    	myButton4.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button3:
+	    	if(board[1][1] == 2){
 	    	board[1][1] = 1;
 	    	myButton5.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button6:
+	    	if(board[2][1] == 2){
 	    	board[2][1] = 1;
 	    	myButton6.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button7:
+	    	if(board[0][2] == 2){
 	    	board[0][2] = 1;
 	    	myButton7.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button8:
+	    	if(board[1][2] == 2){
 	    	board[1][2] = 1;
 	    	myButton8.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button2:
+	    	if(board[2][2] == 2){
 	    	board[2][2] = 1;
 	    	myButton9.setText("X");
+	    	click = true;
+	    	}
 	        break;
 		}
 		
-		turn += 1;
-		
-		if (turn > 4){
-			wincheck();							
+		if (click == true){
+			turn += 1;
+			if (turn > 4){
+				wincheck();							
+			}
+			player = 0;
+			game(v);
 		}
-		player = 0;
-		game(v);
     }
 	
     public void game(View v){
@@ -226,14 +256,22 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 			
 		break;
 		case 1:   // Medium AI: checks for 2 in a row and places it's move in the 3rd square to win
-			 // or block a win. if no 2 in a row random placement.
-			 //*****untested*****
+				  // or block a win. if no 2 in a row random placement.
+				//error after X 00, 01, O 02, X 00,11, no O in 22
 			
 			if(board[0][0] == 0 && board[0][1] == 0 && board[0][2] == 2 ){   // Checks for 2 in a row and places 
-				board[0][2] = 0;				       	// it's move in the 3rd square to win
+				board[0][2] = 0;											// it's move in the 3rd square to win
 				myButton7.setText("O");
 			}
 			else if(board[0][1] == 0 && board[0][2] == 0 && board[0][0] == 2 ){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[0][0] == 0 && board[1][0] == 0 && board[2][0] == 2 ){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}
+			else if(board[1][0] == 0 && board[2][0] == 0 && board[0][0] == 2 ){
 				board[0][0] = 0;
 				myButton1.setText("O");
 			}
@@ -287,11 +325,23 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 			}
 			else if(board[0][0] == 1 && board[0][1] == 1 && board[0][2] == 2){  // Checks for 2 in a row of
 				board[0][2] = 0;	
-				myButton7.setText("O");					// opponent and blocks the
-			} 								// 3rd square to prevent a win
+				myButton7.setText("O");											// opponent and blocks the
+			} 																	// 3rd square to prevent a win
 			else if(board[0][1] == 1 && board[0][2] == 1 && board[0][0] == 2){
 				board[0][0] = 0;
 				myButton1.setText("O");
+			}
+			else if(board[0][0] == 1 && board[1][0] == 1 && board[2][0] == 2 ){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}
+			else if(board[1][0] == 1 && board[2][0] == 1 && board[0][0] == 2 ){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[0][0] == 1 && board[1][1] == 1 && board[2][2] == 2){
+				board[2][2] = 0;
+				myButton9.setText("O");
 			}
 			else if(board[0][1] == 1 && board[1][1] == 1 && board[2][1] == 2){
 				board[2][1] = 0;
@@ -324,10 +374,6 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 			else if(board[1][2] == 1 && board[2][2] == 1 && board[0][2] == 2){
 				board[0][2] = 0;
 				myButton7.setText("O");
-			}
-			else if(board[0][0] == 1 && board[1][1] == 1 && board[2][2] == 2){
-				board[2][2] = 0;
-				myButton9.setText("O");
 			}
 			else if(board[1][1] == 1 && board[2][2] == 1 && board[0][0] == 2){
 				board[0][0] = 0;
