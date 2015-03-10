@@ -1,24 +1,67 @@
-<!-- 
+<!--
  *"sdf" Tic Tac Toe Game for andriod ( SDK Version 4.0+ )
  * Created by Russel Young, started on 9/2/2015
  * Activity Main xml
- -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-	<Button
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_net"
-        android:onClick="internet" />
-	
-	<Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_start_game"
-        android:onClick="startGame" />
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignRight="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="28dp"
+        android:onClick=""
+        android:text="@string/button_multiplayer" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="34dp"
+        android:onClick=""
+        android:text="@string/button_difficulty" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignRight="@+id/button3"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="23dp"
+        android:onClick=""
+        android:text="@string/button_about" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:onClick="startGame"
+        android:text="@string/button_singleplayer" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_alignRight="@+id/button4"
+        android:layout_below="@+id/button4"
+        android:layout_marginTop="25dp"
+        android:onClick=""
+        android:text="@string/button_exit" />
+
+</RelativeLayout>
