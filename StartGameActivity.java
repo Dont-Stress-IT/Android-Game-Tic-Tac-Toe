@@ -32,7 +32,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	int turn = 0;
 	Random rand = new Random();
 	int player = rand.nextInt(2);  //random starting player 
-	boolean click = false;
+	int difficutly = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +81,9 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	
 	@Override
     public void onClick(View v) {
-		/*method to id which button was clicked for human turn placement
+		/* Method to id which button was clicked for human turn placement
 		 * places choice in game board array and visually on the button
+		 * only places move if square is empty
 		 */
 		
 		Button myButton1 = (Button) findViewById(R.id.button1);
@@ -94,60 +95,88 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		Button myButton7 = (Button) findViewById(R.id.button7);
 		Button myButton8 = (Button) findViewById(R.id.button8);
 		Button myButton9 = (Button) findViewById(R.id.button2);
+		boolean click = false;
 			
 		switch (v.getId()) {
 	    case R.id.button1:
+	    	if(board[0][0] == 2){
 	    	board[0][0] = 1;
 	    	myButton1.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button5:
+	    	if(board[1][0] == 2){
 	    	board[1][0] = 1;
 	    	myButton2.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button9:
+	    	if(board[2][0] == 2){
 	    	board[2][0] = 1;
 	    	myButton3.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button4:
+	    	if(board[0][1] == 2){
 	    	board[0][1] = 1;
 	    	myButton4.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button3:
+	    	if(board[1][1] == 2){
 	    	board[1][1] = 1;
 	    	myButton5.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button6:
+	    	if(board[2][1] == 2){
 	    	board[2][1] = 1;
 	    	myButton6.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button7:
+	    	if(board[0][2] == 2){
 	    	board[0][2] = 1;
 	    	myButton7.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button8:
+	    	if(board[1][2] == 2){
 	    	board[1][2] = 1;
 	    	myButton8.setText("X");
+	    	click = true;
+	    	}
 	        break;
 	    case R.id.button2:
+	    	if(board[2][2] == 2){
 	    	board[2][2] = 1;
 	    	myButton9.setText("X");
+	    	click = true;
+	    	}
 	        break;
 		}
 		
-		click = true;
-		turn += 1;
-		
-		if (turn > 4){
-			wincheck();							
+		if (click == true){
+			turn += 1;
+			if (turn > 4){
+				wincheck();							
+			}
+			player = 0;
+			game(v);
 		}
-		player = 0;
-		game(v);
     }
 	
     public void game(View v){
-    	/*checks for winner or end of game due to no turns remaining
+    	/* Checks for winner or end of game due to no turns remaining
     	 * If AI go to turn() method to process, if human wait for click
-    	 * check for winner with wincheck()
+    	 * check for winner by calling wincheck()
     	 */
     	
     	if (winner == 0 && turn < 9){
@@ -170,7 +199,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	
 	
 	void turn() {
-		/* currently easy AI code only ( this is simply a random placement every turn )
+		/* Currently easy AI code only ( this is simply a random placement every turn )
 		 * AI checks that square is empty, if not chooses another square
 		 */
 			
@@ -186,47 +215,222 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 		Button myButton7 = (Button) findViewById(R.id.button7);
 		Button myButton8 = (Button) findViewById(R.id.button8);
 		Button myButton9 = (Button) findViewById(R.id.button2);
-
-				if (player == 0 ){
-					while(board[positionX][positionY] != 2){
-						positionX = rand.nextInt(3);
-						positionY = rand.nextInt(3);
-					}
-					board[positionX][positionY] = 0;	
-					
-					if(positionX == 0 && positionY == 0){
-						myButton1.setText("O");
-					}
-					else if(positionX == 1 && positionY == 0){
-						myButton2.setText("O");
-					}
-					else if(positionX == 2 && positionY == 0){
-						myButton3.setText("O");
-					}
-					else if(positionX == 0 && positionY == 1){
-						myButton4.setText("O");
-					}
-					else if(positionX == 1 && positionY == 1){
-						myButton5.setText("O");
-					}
-					else if(positionX == 2 && positionY == 1){
-						myButton6.setText("O");
-					}
-					else if(positionX == 0 && positionY == 2){
-						myButton7.setText("O");
-					}
-					else if(positionX == 1 && positionY == 2){
-						myButton8.setText("O");
-						}
-					else if(positionX == 2 && positionY == 2){
-						myButton9.setText("O");
-						}	
-					click = false;
+		
+		switch(difficutly){
+		
+		case 0:   // Easy AI: random placement if the square is empty
+			
+				while(board[positionX][positionY] != 2){
+					positionX = rand.nextInt(3);
+					positionY = rand.nextInt(3);
 				}
-				else{
-						//human or ai
+				board[positionX][positionY] = 0;	
+				
+				if(positionX == 0 && positionY == 0){
+					myButton1.setText("O");
 				}
+				else if(positionX == 1 && positionY == 0){
+					myButton2.setText("O");
+				}
+				else if(positionX == 2 && positionY == 0){
+					myButton3.setText("O");
+				}
+				else if(positionX == 0 && positionY == 1){
+					myButton4.setText("O");
+				}
+				else if(positionX == 1 && positionY == 1){
+					myButton5.setText("O");
+				}
+				else if(positionX == 2 && positionY == 1){
+					myButton6.setText("O");
+				}
+				else if(positionX == 0 && positionY == 2){
+					myButton7.setText("O");
+				}
+				else if(positionX == 1 && positionY == 2){
+					myButton8.setText("O");
+					}
+				else if(positionX == 2 && positionY == 2){
+					myButton9.setText("O");
+					}	
+			
+		break;
+		case 1:   // Medium AI: checks for 2 in a row and places it's move in the 3rd square to win
+				  // or block a win. if no 2 in a row random placement.
+			
+			if(board[0][0] == 0 && board[0][1] == 0 && board[0][2] == 2 ){   // Checks for 2 in a row and places 
+				board[0][2] = 0;											// it's move in the 3rd square to win
+				myButton7.setText("O");
 			}
+			else if(board[0][1] == 0 && board[0][2] == 0 && board[0][0] == 2 ){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[0][0] == 0 && board[1][0] == 0 && board[2][0] == 2 ){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}
+			else if(board[1][0] == 0 && board[2][0] == 0 && board[0][0] == 2 ){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[0][1] == 0 && board[1][1] == 0 && board[2][1] == 2 ){
+				board[2][1] = 0;
+				myButton6.setText("O");
+			}
+			else if(board[1][1] == 0 && board[2][1] == 0 && board[0][1] == 2){
+				board[0][1] = 0;
+				myButton4.setText("O");
+			}
+			else if(board[1][0] == 0 && board[1][1] == 0 && board[1][2] == 2){
+				board[1][2] = 0;
+				myButton8.setText("O");
+			}
+			else if(board[1][1] == 0 && board[1][2] == 0 && board[1][0] == 2){
+				board[1][0] = 0;
+				myButton2.setText("O");
+			}
+			else if(board[2][0] == 0 && board[2][1] == 0 && board[2][2] == 2){
+				board[2][2] = 0;
+				myButton9.setText("O");
+			}
+			else if(board[2][1] == 0 && board[2][2] == 0 && board[2][0] == 2){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}
+			else if(board[0][2] == 0 && board[1][2] == 0 && board[2][2] == 2){
+				board[2][2] = 0;
+				myButton9.setText("O");
+			}
+			else if(board[1][2] == 0 && board[2][2] == 0 && board[0][2] == 2){
+				board[0][2] = 0;
+				myButton7.setText("O");
+			}
+			else if(board[0][0] == 0 && board[1][1] == 0 && board[2][2] == 2){
+				board[2][2] = 0;
+				myButton9.setText("O");
+			}
+			else if(board[1][1] == 0 && board[2][2] == 0 && board[0][0] == 2){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[2][0] == 0 && board[1][1] == 0 && board[0][2] == 2){
+				board[0][2] = 0;
+				myButton7.setText("O");
+			}
+			else if(board[1][1] == 0 && board[0][2] == 0 && board[2][0] == 2){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}
+			else if(board[0][0] == 1 && board[0][1] == 1 && board[0][2] == 2){  // Checks for 2 in a row of
+				board[0][2] = 0;	
+				myButton7.setText("O");											// opponent and blocks the
+			} 																	// 3rd square to prevent a win
+			else if(board[0][1] == 1 && board[0][2] == 1 && board[0][0] == 2){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[0][0] == 1 && board[1][0] == 1 && board[2][0] == 2 ){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}
+			else if(board[1][0] == 1 && board[2][0] == 1 && board[0][0] == 2 ){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[0][0] == 1 && board[1][1] == 1 && board[2][2] == 2){
+				board[2][2] = 0;
+				myButton9.setText("O");
+			}
+			else if(board[0][1] == 1 && board[1][1] == 1 && board[2][1] == 2){
+				board[2][1] = 0;
+				myButton6.setText("O");
+			}
+			else if(board[1][1] == 1 && board[2][1] == 1 && board[0][1] == 2){
+				board[0][1] = 0;
+				myButton4.setText("O");
+			}
+			else if(board[1][0] == 1 && board[1][1] == 1 && board[1][2] == 2){
+				board[1][2] = 0;
+				myButton8.setText("O");
+			}
+			else if(board[1][1] == 1 && board[1][2] == 1 && board[1][0] == 2){
+				board[1][0] = 0;
+				myButton2.setText("O");
+			}
+			else if(board[2][0] == 1 && board[2][1] == 1 && board[2][2] == 2){
+				board[2][2] = 0;
+				myButton9.setText("O");
+			}
+			else if(board[2][1] == 1 && board[2][2] == 1 && board[2][0] == 2){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}
+			else if(board[0][2] == 1 && board[1][2] == 1 && board[2][2] == 2){
+				board[2][2] = 0;
+				myButton9.setText("O");
+			}
+			else if(board[1][2] == 1 && board[2][2] == 1 && board[0][2] == 2){
+				board[0][2] = 0;
+				myButton7.setText("O");
+			}
+			else if(board[1][1] == 1 && board[2][2] == 1 && board[0][0] == 2){
+				board[0][0] = 0;
+				myButton1.setText("O");
+			}
+			else if(board[2][0] == 1 && board[1][1] == 1 && board[0][2] == 2){
+				board[0][2] = 0;
+				myButton7.setText("O");
+			}
+			else if(board[1][1] == 1 && board[0][2] == 1 && board[2][0] == 2){
+				board[2][0] = 0;
+				myButton3.setText("O");
+			}else{
+
+				while(board[positionX][positionY] != 2){
+					positionX = rand.nextInt(3);
+					positionY = rand.nextInt(3);
+				}
+				
+				board[positionX][positionY] = 0;	
+				
+				if(positionX == 0 && positionY == 0){
+					myButton1.setText("O");
+				}
+				else if(positionX == 1 && positionY == 0){
+					myButton2.setText("O");
+				}
+				else if(positionX == 2 && positionY == 0){
+					myButton3.setText("O");
+				}
+				else if(positionX == 0 && positionY == 1){
+					myButton4.setText("O");
+				}
+				else if(positionX == 1 && positionY == 1){
+					myButton5.setText("O");
+				}
+				else if(positionX == 2 && positionY == 1){
+					myButton6.setText("O");
+				}
+				else if(positionX == 0 && positionY == 2){
+					myButton7.setText("O");
+				}
+				else if(positionX == 1 && positionY == 2){
+					myButton8.setText("O");
+					}
+				else if(positionX == 2 && positionY == 2){
+					myButton9.setText("O");
+					}	
+			}
+			
+		break;
+		case 2://hard AI
+			
+			
+		break;
+		
+		}
+	}
 	
 	public void wincheck (){
 		/*checks for a winner and displays winner
