@@ -18,6 +18,12 @@ Logging functions
 
 Backwards compatability (aiming for a minimum android SDK 4.0)
 
+update log 6/03/2015
+
+Medium difficulty AI working
+
+Human can no longer click on occupied square as there turn
+
 update log 3/03/2015
 
 Human vs easy AI working update.
