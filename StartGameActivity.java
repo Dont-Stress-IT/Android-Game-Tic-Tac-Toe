@@ -199,8 +199,7 @@ public class StartGameActivity extends ActionBarActivity implements OnClickListe
 	
 	
 	void turn() {
-		/* Currently easy AI code only ( this is simply a random placement every turn )
-		 * AI checks that square is empty, if not chooses another square
+		/* Easy and medium AI skill, hard to be added
 		 */
 			
 		int positionX = rand.nextInt(3);
