@@ -18,13 +18,18 @@ Logging functions
 
 Backwards compatability (aiming for a minimum android SDK 4.0)
 
-update log 6/03/2015
+
+****update log 27/03/2015****
+
+Hard AI complete, needs further testing for assurance. 
+
+****update log 6/03/2015****
 
 Medium difficulty AI working
 
 Human can no longer click on occupied square as there turn
 
-update log 3/03/2015
+****update log 3/03/2015****
 
 Human vs easy AI working update.
 
@@ -33,7 +38,7 @@ Human goes first, then AI. It checks for a winner after every move after the 4th
 code OO architecture changes: declaired variables in start game activity fragment instead of inside it's modules and passing them every time.
 
 
-update log 12/02/2015 
+****update log 12/02/2015****
 
 Code: cleaned up wincheck() method for readability, Winner check complete
       
