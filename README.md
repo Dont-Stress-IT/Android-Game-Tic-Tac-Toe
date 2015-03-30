@@ -19,6 +19,10 @@ Logging functions
 Backwards compatability (aiming for a minimum android SDK 4.0)
 
 
+****update log 30/03/2015****
+
+Hard AI tested and working
+
 ****update log 27/03/2015****
 
 Hard AI complete, needs further testing for assurance. 
