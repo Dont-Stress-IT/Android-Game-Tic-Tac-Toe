@@ -1,5 +1,5 @@
 
-/* Tic Tac Toe Game for andriod ( SDK Version 4.0+ )
+/* Tic Tac Toe Game for android ( SDK Version 4.0+ )
  * Created by Russel Young, started on 9/2/2015
  * Start Game Activity thread
  */
